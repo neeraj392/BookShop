@@ -1,0 +1,147 @@
+﻿@model BookShopping_Project.Models.ViewModels.ProductVM
+@{
+    var title = (Model.product.Id == 0 ? "New product" : "EditProduct");
+}
+<div class="row">
+    <h2 class="text-primary">@title</h2>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+
+
+
+
+            @if (Model.product.Id != 0)
+            {
+                <input type="hidden" asp-for="product.Id" />
+            }
+            <div asp-validation-summary="None" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="product.Title">
+
+                </label>
+                <input asp-for="product.Title" class="form-control" />
+                <span asp-validation-for="product.Title" class="text-danger">
+                </span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="product.Description">
+
+                </label>
+                <textarea asp-for="product.Description" class="form-control"></textarea>
+                <span asp-validation-for="product.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="product.Author"></label>
+                <input asp-for="product.Author" class="form-control" />
+                <span asp-validation-for="product.Author" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product.ISBN"></label>
+                <input asp-for="product.ISBN" class="form-control" />
+                <span asp-validation-for="product.ISBN" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="product.ListPrice"></label>
+                <input asp-for="product.ListPrice" class="form-control" />
+                <span asp-validation-for="product.ListPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product.Price50"></label>
+                <input asp-for="product.Price50" class="form-control" />
+                <span asp-validation-for="product.Price50" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="product.Price100"></label>
+                <input asp-for="product.Price100" class="form-control" />
+                <span asp-validation-for="product.Price100" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="product.Price"></label>
+                <input asp-for="product.Price" class="form-control" />
+                <span asp-validation-for="product.Price" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product.CategoryId"></label>
+                @Html.DropDownListFor(m => m.product.CategoryId, Model.categorylist, "Select Category", new { @class = "form-control" })
+                <span asp-validation-for="product.CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product.CoverTypeId"></label>
+                @Html.DropDownListFor(m => m.product.CoverTypeId, Model.covertypelist, "Select Covertype", new { @class = "form-control" })
+                <span asp-validation-for="product.CoverTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product.ImageUrl"></label>
+                <input type="file" id="uploadbox" multiple class="form-control" asp-for="product.ImageUrl" />
+                <span asp-validation-for="product.ImageUrl" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                @if (Model.product.Id != 0)
+                {
+                    <partial name="_EditAndBackToListButton" />
+                }
+                else
+                {
+
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" onclick="return Valdata()" class="btn btn-info form-control">Save</button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success form-control">Back To List</a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-6">
+
+        @if (Model.product.Id != 0)
+        {
+            <img src="@Model.product.ImageUrl" height="200" width="200" />
+        }
+    </div>
+
+</div>
+
+@section scripts
+{
+    <partial name="_validationscriptspartial" />
+    <script src="https://cdn.tiny.cloud/1/ne2gvt6wosycl0kuf5clobb4b1lmrluikc2iphrn6qn4dp7i/tinymce/5/tinymce.min.js"></script>
+
+    <script>
+    tinymce.init({
+        selector: "textarea",
+        pluggins: "lists",
+        menubar:"file  edit format"
+    })
+    //function Valdata() {
+    //    if (document.getElementById('uploadbox').value = "") {
+    //        swal("error", "Please select image!!!", "error");
+    //        return false;
+    //    }
+    //    return true;
+    //}
+
+    </script>
+}
+

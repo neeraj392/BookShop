@@ -1,0 +1,40 @@
+﻿@model BookShopping_Project.Models.Category
+@{
+    var title = Model.Id != 0 ? "Category" : "New Category";
+}
+<form method="post">
+    <div asp-validation-summary="None" class="text-danger"></div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8">
+            <div class="form-group row p-4 m-4">
+                <div class="col-3">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-6 offset-2">
+            @if (Model.Id != 0)
+            {
+                <partial name="_EditAndBackToListButton" />
+            }
+            else
+            {
+                <partial name="_CreateAndBackToListButton" />
+            }
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

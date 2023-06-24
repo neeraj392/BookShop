@@ -1,0 +1,34 @@
+﻿ { "data": "name", "width": "15%" },
+            { "data": "email", "width": "15%" },
+            { "data": "phoneNumber", "width": "15%" },
+            { "data": "company.Name", "width": "15%" },
+            { "data": "role", "width": "15%" },
+            {
+                "data": {
+                    id:"id",lockoutEnd:"lockoutEnd"
+                },
+                "render": function (data) {
+                    var today = new Date().getTime();        //client time
+                    var lockout = new.Date(data.lockoutEnd).getTime();
+                    if (lockout > today) {
+
+                        //user locked
+
+
+                        return `
+                                <div class="text-center">
+                                    <a onclick=LockUnlock('${data.id}') class="btn btn-danger text-white" style="cursor:pointer">Unlock
+                                    </a>
+                                </div>
+                               `;
+                    }
+                    
+                    else {
+                        //User Unlock
+                          return `
+                                        <div class="text-center">
+                                            <a onclick=LockUnlock('${data.id}') class="btn btn-success text-white" style="cursor:pointer">Lock
+                                            </a>
+                                        </div>
+                                       `;
+                    }
